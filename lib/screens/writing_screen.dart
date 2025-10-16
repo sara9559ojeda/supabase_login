@@ -190,6 +190,12 @@ class _WritingScreenState extends State<WritingScreen> {
                 onPressed: _isLoading ? null : _improveWriting,
                 icon: const Icon(Icons.auto_fix_high),
                 label: const Text('Improve Writing'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 16),

@@ -34,7 +34,32 @@ class _HistoryScreenState extends State<HistoryScreen> {
         title: const Text('History'),
       ),
       body: _history.isEmpty
-          ? const Center(child: Text('No history yet'))
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.history, size: 48, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'No history yet',
+                    style: TextStyle(color: Colors.grey.shade700, fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Your processed documents will appear here',
+                    style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            )
           : ListView.builder(
               itemCount: _history.length,
               itemBuilder: (context, index) {

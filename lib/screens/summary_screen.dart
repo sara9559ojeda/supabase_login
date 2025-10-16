@@ -192,6 +192,12 @@ class _SummaryScreenState extends State<SummaryScreen> {
                 onPressed: _isLoading ? null : _generateSummary,
                 icon: const Icon(Icons.summarize),
                 label: const Text('Generate Summary'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 16),

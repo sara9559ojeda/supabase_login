@@ -150,20 +150,28 @@ class _FilesScreenState extends State<FilesScreen> {
                   ),
                 )
               : _files.isEmpty
-                  ? const Center(
+                  ? Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.folder_open, size: 48, color: Colors.grey),
-                          SizedBox(height: 16),
+                          Container(
+                            padding: const EdgeInsets.all(24),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.folder_open, size: 48, color: Colors.grey),
+                          ),
+                          const SizedBox(height: 24),
                           Text(
                             'No tienes archivos exportados',
-                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                            style: TextStyle(color: Colors.grey.shade700, fontSize: 18, fontWeight: FontWeight.w500),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Text(
                             'Crea un resumen o mejora un texto y expórtalo',
-                            style: TextStyle(color: Colors.grey, fontSize: 14),
+                            style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),

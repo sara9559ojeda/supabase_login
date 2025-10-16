@@ -39,85 +39,140 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Welcome to AI Assistant',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Choose a feature to get started',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 40),
-            Column(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.white, Colors.indigo.shade50],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.indigo.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.smart_toy,
+                    size: 80,
+                    color: Colors.indigo,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                const Text(
+                  'Welcome to AI Assistant',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Choose a feature to get started',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 40),
+                Column(
                   children: [
-                    _buildFeatureCard(
-                      context,
-                      icon: Icons.description,
-                      title: 'Document Summary',
-                      subtitle: 'Summarize and translate documents',
-                      gradientColors: [Colors.blueAccent, Colors.lightBlue],
-                      onTap: () {
-                        Navigator.push(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildFeatureCard(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => SummaryScreen(geminiService: widget.geminiService),
-                          ),
-                        );
-                      },
+                          icon: Icons.description,
+                          title: 'Document Summary',
+                          subtitle: 'Summarize and translate documents',
+                          gradientColors: [
+                            Colors.blueAccent,
+                            Colors.lightBlue
+                          ],
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SummaryScreen(
+                                  geminiService: widget.geminiService,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        _buildFeatureCard(
+                          context,
+                          icon: Icons.edit,
+                          title: 'Writing Assistant',
+                          subtitle: 'Improve your writing',
+                          gradientColors: [Colors.greenAccent, Colors.teal],
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => WritingScreen(
+                                  geminiService: widget.geminiService,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
+                    const SizedBox(height: 20),
                     _buildFeatureCard(
                       context,
-                      icon: Icons.edit,
-                      title: 'Writing Assistant',
-                      subtitle: 'Improve your writing',
-                      gradientColors: [Colors.greenAccent, Colors.teal],
+                      icon: Icons.folder,
+                      title: 'My Files',
+                      subtitle: 'View and download your exported files',
+                      gradientColors: [
+                        Colors.purpleAccent,
+                        Colors.deepPurple
+                      ],
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => WritingScreen(geminiService: widget.geminiService),
+                            builder: (context) => const FilesScreen(),
                           ),
                         );
                       },
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
-                _buildFeatureCard(
-                  context,
-                  icon: Icons.folder,
-                  title: 'My Files',
-                  subtitle: 'View and download your exported files',
-                  gradientColors: [Colors.purpleAccent, Colors.deepPurple],
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const FilesScreen(),
-                      ),
-                    );
-                  },
-                ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildFeatureCard(BuildContext context, {required IconData icon, required String title, required String subtitle, required VoidCallback onTap, required List<Color> gradientColors}) {
+  Widget _buildFeatureCard(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+    required List<Color> gradientColors,
+  }) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.4,
       decoration: BoxDecoration(
@@ -132,7 +187,9 @@ class _HomeScreenState extends State<HomeScreen> {
         margin: EdgeInsets.zero,
         color: Colors.transparent,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(12),
@@ -145,13 +202,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 12),
                 Text(
                   title,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(fontSize: 12, color: Colors.white70),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.white70,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ],
